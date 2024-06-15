@@ -7,6 +7,10 @@ const app = new Vue({
         ]
     },
     methods: {
+        async fetchList() {
+            const response = await fetch("http://localhost:3000/todo/read_list");
+            this.list = await response.json();
+        },
         addItem() {
             if (this.userInput.trim() !== '') {
                 const newItem = {
