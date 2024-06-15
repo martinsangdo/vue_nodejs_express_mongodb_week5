@@ -6,10 +6,18 @@ const app = new Vue({
         list: [     //get from database
         ]
     },
+    mounted: function () {
+        //this function is called after all DOM elements rendered in HTML page
+        this.$nextTick(function () {
+            // this.fetchList();
+        })
+    },
     methods: {
         async fetchList() {
             const response = await fetch("http://localhost:3000/todo/read_list");
-            this.list = await response.json();
+            var response_json = await response.json();
+            // console.log(response_json);
+            this.list = response_json['data'];
         },
         addItem() {
             if (this.userInput.trim() !== '') {

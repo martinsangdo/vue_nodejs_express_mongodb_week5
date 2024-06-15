@@ -6,13 +6,13 @@ const Schema = mongoose.Schema;
 var Constant = require("../common/constant.js");
 
 const todoSchema = new Schema({
-    id: Number,
+    id: String,
     title: String,
     is_active: { type: Boolean, default: true },
     created_time: { type: Number }  //millisecond
 });
 
-const Todo = mongoose.model("todo", todoSchema);
+const Todo = mongoose.model("todos", todoSchema);
 
 //
 Todo.prototype.find = function (
