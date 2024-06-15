@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 const request = require('request');
 var Todo = require('../models/Todo');
-
+//
+function create_timestamp(){
+    return parseInt(new Date().getTime() / 1000);
+}
 //this is rending the page without getting data from mongoDB
 router.get('/list', function(req, res, next) {
     res.render('todo/list');
@@ -22,14 +25,16 @@ router.get('/read_list', function(req, res, next) {
 });
 //POST request
 router.post('/create_new', function(req, res, next) {
-    var movie = new Movie();
-    movie.create(
+    var todo = new Todo();
+    todo.create(
         {
+            "id": req.body['id'],
             "title": req.body['title'],
-            "year": req.body['year']
+            "is_active": true,
+            "created_time": create_timestamp()
         },
         function(results){
-            // console.log(results);
+            console.log(results);
             res.json(results);
         });
 });

@@ -19,13 +19,38 @@ const app = new Vue({
             // console.log(response_json);
             this.list = response_json['data'];
         },
+        save_new_item(newItem){
+            //send data to Nodejs
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newItem)
+            };
+            fetch('http://localhost:3000/todo/create_new', requestOptions)
+                .then(async response => {
+                    const data = await response.json();
+                    // console.log(data);
+                    // check for error response
+                    if (!response.ok) {
+                        // get error message from body or default to response status
+                        const error = (data && data.message) || response.status;
+                        return Promise.reject(error);
+                    }
+
+                    this.postId = data.id;
+                })
+                .catch(error => {
+                    this.errorMessage = error;
+                    console.error('There was an error!', error);
+                });
+        },
         addItem() {
             if (this.userInput.trim() !== '') {
                 const newItem = {
-                    id: Math.random(),
+                    id: generate_random_uuid(),
                     title: this.userInput.trim()
                 };
-                this.list.push(newItem);
+                this.list.push(newItem);    //put it in the list
                 this.userInput = '';    //clear what user input
             }
         },
