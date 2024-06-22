@@ -58,5 +58,9 @@ router.put('/update_me', function(req, res, next) {
 router.delete('/delete_it', function(req, res, next) {
     //you do it
 });
+////////// Youtube videos
+router.get('/yt/homepage', function(req, res, next) {
+    res.render('yt/homepage');
+});
 
 module.exports = router;
