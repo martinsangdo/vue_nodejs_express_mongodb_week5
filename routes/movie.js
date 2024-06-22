@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const request = require('request');
 var Movie = require('../models/Movie');
-
+var Constant = require("../common/constant.js");
+const axios = require('axios');
 
 /* GET movies listing. */
 router.get('/list', function(req, res, next) {
@@ -61,6 +62,20 @@ router.delete('/delete_it', function(req, res, next) {
 ////////// Youtube videos
 router.get('/yt/homepage', function(req, res, next) {
     res.render('yt/homepage');
+});
+
+router.get('/yt/latest_songs', function(req, res, next) {
+    //get data from public service https://openwhyd.github.io/openwhyd/API?ref=public_apis#hot-tracks
+    var url = Constant.YT_DOMAIN + 'hot?format=json';
+    axios.get(url)
+        .then((response) => {
+            const data = response.data;
+            // console.log(data); // Or use the data as needed
+            res.json(data.tracks);  //todo should not return all fields
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+        });
 });
 
 module.exports = router;

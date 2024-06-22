@@ -36,8 +36,10 @@ var Constant	= {
     
     CAST_ERROR: 'CastError',        //message from query mongodb
     ObjectID: 'ObjectID',
-    ObjectId: 'ObjectId'
-   
+    ObjectId: 'ObjectId',
+   //youtube songs
+    //https://openwhyd.github.io/openwhyd/API?ref=public_apis#tracks
+    YT_DOMAIN: 'https://openwhyd.org/'
 };
 //
 module.exports = Constant;
